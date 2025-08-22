@@ -164,8 +164,7 @@ public class UserService {
     private byte[] createPasswordHash(String password, byte[] salt) throws NoSuchAlgorithmException {
         var md = MessageDigest.getInstance("SHA-512");
         md.update(salt);
-        return md.digest(
-                password.getBytes(StandardCharsets.UTF_8));
+        return md.digest(password.getBytes(StandardCharsets.UTF_8));
     }
 
 }

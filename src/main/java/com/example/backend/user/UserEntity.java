@@ -16,6 +16,13 @@ import lombok.NoArgsConstructor;
 @Data
 @Entity
 @NoArgsConstructor
+// @RedisHash("User")
+// The @RedisHash annotation is used to indicate that this entity should be stored in Redis.
+// It is not a standard JPA annotation, but rather a Spring Data Redis annotation.
+// It allows the entity to be serialized and stored in Redis, which is a key-value store
+// commonly used for caching and fast data retrieval in Spring applications.
+// This annotation is useful when you want to use Redis as a data store for your entities,
+// allowing you to take advantage of Redis's performance and scalability features.
 public class UserEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO, generator = "UUID")

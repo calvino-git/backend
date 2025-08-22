@@ -1,5 +1,6 @@
 package com.example.backend.AntiHeroes.entity;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.UUID;
@@ -10,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,8 +21,8 @@ import lombok.NoArgsConstructor;
 @Table( name = "anti_heroes")
 @AllArgsConstructor
 @NoArgsConstructor
-public class AntiHeroe {
-   @Id
+public class AntiHeroe implements Serializable{
+    @Id
     @GeneratedValue(generator = "UUID", strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false)
     private UUID id;

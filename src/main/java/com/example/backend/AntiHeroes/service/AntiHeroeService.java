@@ -2,6 +2,10 @@ package com.example.backend.AntiHeroes.service;
 
 import com.example.backend.AntiHeroes.entity.AntiHeroe;
 import com.example.backend.AntiHeroes.repository.AntiHeroeRepository;
+
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -20,14 +24,16 @@ public class AntiHeroeService {
         return antiHeroeRepository.save(antiHeroe);
     }
 
+    @Cacheable(value = "antiHeroes", key = "#id")
     public AntiHeroe getAntiHeroeById(UUID id) {
         return findOrThrow(id);
     }
-
+    @Cacheable(value = "antiHeroes")
     public Iterable<AntiHeroe> getAllAntiHeroes() {
         return antiHeroeRepository.findAll();
     }
 
+    @CachePut(value = "antiHeroes", key = "#id")
     public AntiHeroe updateAntiHeroe(UUID id, AntiHeroe antiHeroeData) {
         AntiHeroe antiHeroe = findOrThrow(id);
         antiHeroe.setFirstName(antiHeroeData.getFirstName());
@@ -37,6 +43,7 @@ public class AntiHeroeService {
         return antiHeroeRepository.save(antiHeroe);
     }
 
+    @CacheEvict(value = "antiHeroes", key = "#id")
     public void deleteAntiHeroe(UUID id) {
         antiHeroeRepository.deleteById(id);
     }

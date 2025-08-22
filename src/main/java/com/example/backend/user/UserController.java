@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 
-@RestController
+// @RestController
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
