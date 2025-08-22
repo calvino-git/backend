@@ -1,4 +1,4 @@
-package com.example.backend.AntiHeroes.dto;
+package com.example.backend.antiheroes.dto;
 
 import java.util.UUID;
 
@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AntiHeroeDto {
+public class AntiHeroDto {
     private UUID id;
     @NotNull(message = "Firstname is required.")
     private String firstName;

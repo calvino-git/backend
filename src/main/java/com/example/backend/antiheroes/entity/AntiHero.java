@@ -1,4 +1,4 @@
-package com.example.backend.AntiHeroes.entity;
+package com.example.backend.antiheroes.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Table( name = "anti_heroes")
 @AllArgsConstructor
 @NoArgsConstructor
-public class AntiHeroe implements Serializable{
+public class AntiHero implements Serializable{
     @Id
     @GeneratedValue(generator = "UUID", strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false)

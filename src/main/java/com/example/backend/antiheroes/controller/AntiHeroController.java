@@ -1,8 +1,8 @@
-package com.example.backend.AntiHeroes.controller;
+package com.example.backend.antiheroes.controller;
 
-import com.example.backend.AntiHeroes.dto.AntiHeroeDto;
-import com.example.backend.AntiHeroes.entity.AntiHeroe;
-import com.example.backend.AntiHeroes.service.AntiHeroeService;
+import com.example.backend.antiheroes.dto.AntiHeroDto;
+import com.example.backend.antiheroes.entity.AntiHero;
+import com.example.backend.antiheroes.service.AntiHeroService;
 
 import lombok.AllArgsConstructor;
 
@@ -21,14 +21,14 @@ import java.util.stream.Collectors;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/anti-heroes")
-public class AntiHeroeController {
-    private final AntiHeroeService antiHeroeService;
+public class AntiHeroController {
+    private final AntiHeroService antiHeroService;
     private final ModelMapper modelMapper;
 
     @PostMapping
-    public ResponseEntity<AntiHeroeDto> create(@Valid @RequestBody AntiHeroeDto dto) {
-        AntiHeroe created = antiHeroeService.createAntiHeroe(modelMapper.map(dto, AntiHeroe.class));
-        AntiHeroeDto responseDto = modelMapper.map(created, AntiHeroeDto.class);
+    public ResponseEntity<AntiHeroDto> create(@Valid @RequestBody AntiHeroDto dto) {
+        AntiHero created = antiHeroService.createAntiHeroe(modelMapper.map(dto, AntiHero.class));
+        AntiHeroDto responseDto = modelMapper.map(created, AntiHeroDto.class);
         return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 
@@ -40,32 +40,32 @@ public class AntiHeroeController {
     // When this method is called with a specific id, the result will be cached,
     // and subsequent calls with the same id will return the cached result instead of executing the method
     // again, improving performance by avoiding unnecessary database queries.
-    public ResponseEntity<AntiHeroeDto> getById(@PathVariable UUID id) {
-        AntiHeroe antiHeroe = antiHeroeService.getAntiHeroeById(id);
-        AntiHeroeDto dto = modelMapper.map(antiHeroe, AntiHeroeDto.class);
+    public ResponseEntity<AntiHeroDto> getById(@PathVariable UUID id) {
+        AntiHero antiHero = antiHeroService.getAntiHeroeById(id);
+        AntiHeroDto dto = modelMapper.map(antiHero, AntiHeroDto.class);
         return ResponseEntity.ok(dto);
     }
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
-    public ResponseEntity<List<AntiHeroeDto>> getAll() {
-        List<AntiHeroeDto> dtos = ((List<AntiHeroe>) antiHeroeService.getAllAntiHeroes())
+    public ResponseEntity<List<AntiHeroDto>> getAll() {
+        List<AntiHeroDto> dtos = ((List<AntiHero>) antiHeroService.getAllAntiHeroes())
             .stream()
-            .map(entity -> modelMapper.map(entity, AntiHeroeDto.class))
+            .map(entity -> modelMapper.map(entity, AntiHeroDto.class))
             .collect(Collectors.toList());
         return ResponseEntity.ok(dtos);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AntiHeroeDto> update(@PathVariable UUID id, @Valid @RequestBody AntiHeroeDto dto) {
-        AntiHeroe updated = antiHeroeService.updateAntiHeroe(id, modelMapper.map(dto, AntiHeroe.class));
-        AntiHeroeDto responseDto = modelMapper.map(updated, AntiHeroeDto.class);
+    public ResponseEntity<AntiHeroDto> update(@PathVariable UUID id, @Valid @RequestBody AntiHeroDto dto) {
+        AntiHero updated = antiHeroService.updateAntiHeroe(id, modelMapper.map(dto, AntiHero.class));
+        AntiHeroDto responseDto = modelMapper.map(updated, AntiHeroDto.class);
         return ResponseEntity.ok(responseDto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        antiHeroeService.deleteAntiHeroe(id);
+        antiHeroService.deleteAntiHeroe(id);
         return ResponseEntity.noContent().build();
     }
 }

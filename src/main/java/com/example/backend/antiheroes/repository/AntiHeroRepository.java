@@ -1,25 +1,25 @@
-package com.example.backend.AntiHeroes.repository;
+package com.example.backend.antiheroes.repository;
 
 import java.util.UUID;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.backend.AntiHeroes.entity.AntiHeroe;
+import com.example.backend.antiheroes.entity.AntiHero;
 
 @Repository
-public interface AntiHeroeRepository extends CrudRepository<AntiHeroe, UUID> {
+public interface AntiHeroRepository extends CrudRepository<AntiHero, UUID> {
 
     // Custom query to find an anti-hero by their first name
-    AntiHeroe findByFirstName(String firstName);
+    AntiHero findByFirstName(String firstName);
 
     // Custom query to find an anti-hero by their last name
-    AntiHeroe findByLastName(String lastName);
+    AntiHero findByLastName(String lastName);
 
     // Custom query to find an anti-hero by their house
-    AntiHeroe findByHouse(String house);
+    AntiHero findByHouse(String house);
 
     // Custom query to find an anti-hero by their known alias
-    AntiHeroe findByKnowAs(String knowAs);
+    AntiHero findByKnowAs(String knowAs);
 
 }
