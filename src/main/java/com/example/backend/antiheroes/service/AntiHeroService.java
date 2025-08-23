@@ -28,6 +28,7 @@ public class AntiHeroService {
     public AntiHero getAntiHeroeById(UUID id) {
         return findOrThrow(id);
     }
+
     @Cacheable(value = "antiHeroes")
     public Iterable<AntiHero> getAllAntiHeroes() {
         return antiHeroRepository.findAll();

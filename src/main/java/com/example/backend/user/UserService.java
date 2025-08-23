@@ -5,7 +5,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -95,7 +94,7 @@ public class UserService {
      * @return the user as a UserDto
      * @throws IllegalStateException if the user is not found
      */
-    public UserEntity getUserByEmail(String email) {
+    public UserEntity findUserByEmail(String email) {
         UserEntity userEntity = userRepository.findByEmail(email);
         if (userEntity == null) {
             throw new IllegalStateException("User not found");
@@ -145,15 +144,6 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundException("User by id " + id + " was not found"));
     }
 
-    /**
-     * Updates an existing user in the system.
-     *
-     * @param userDto the user data transfer object containing updated user details
-     * @return the updated user as a UserDto
-     * @throws NoSuchAlgorithmException if the hashing algorithm is not found
-     * @throws IllegalStateException if the email already exists
-     */
-    
     private byte[] createSalt() {
         var random = new SecureRandom();
         var salt = new byte[128];

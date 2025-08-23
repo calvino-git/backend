@@ -6,6 +6,7 @@ import java.util.UUID;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,17 +19,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 
-// @RestController
+@RestController
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
 
+    //@PreAuthorize("isAuthenticated()")
     @RequestMapping("/api/v1/users")
     public Iterable<UserDto> getUsers() {
         // This endpoint retrieves all users.
         return userService.findAllUsers();
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/api/v1/users/{id}")
     public UserDto getUserById(@PathVariable("id") UUID id) {
         return userService.findUserById(id);
@@ -42,7 +45,7 @@ public class UserController {
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public UserDto postUser(@Valid @RequestBody UserDto userDto)throws NoSuchAlgorithmException {
+    public UserDto postUser(@Valid @RequestBody UserDto userDto) throws NoSuchAlgorithmException {
         return userService.createUser(userDto);
     }
 

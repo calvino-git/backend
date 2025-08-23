@@ -8,18 +8,27 @@ import lombok.AllArgsConstructor;
 
 import javax.validation.Valid;
 
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
+@Slf4j
 @CrossOrigin(allowedHeaders = "Content-type")
 @RestController
 @AllArgsConstructor
+@PreAuthorize("isAuthenticated()")
 @RequestMapping("/api/v1/anti-heroes")
 public class AntiHeroController {
     private final AntiHeroService antiHeroService;
@@ -29,7 +38,9 @@ public class AntiHeroController {
     public ResponseEntity<AntiHeroDto> create(@Valid @RequestBody AntiHeroDto dto) {
         AntiHero created = antiHeroService.createAntiHeroe(modelMapper.map(dto, AntiHero.class));
         AntiHeroDto responseDto = modelMapper.map(created, AntiHeroDto.class);
-        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
+        var location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(created.getId()).toUri();
+
+        return ResponseEntity.created(location).body(responseDto);
     }
 
     @GetMapping("/{id}")
@@ -48,11 +59,20 @@ public class AntiHeroController {
 
     @CrossOrigin(origins = "http://localhost:4200")
     @GetMapping
-    public ResponseEntity<List<AntiHeroDto>> getAll() {
-        List<AntiHeroDto> dtos = ((List<AntiHero>) antiHeroService.getAllAntiHeroes())
+    public ResponseEntity<List<AntiHeroDto>> getAll(Pageable pageable) {
+        int toSkip = pageable.getPageSize() * pageable.getPageNumber();//
+        //SLF4J
+        log.info("Using SLF4J: Getting anti hero list - getAntiHeroes()");
+        var antiHeroes = StreamSupport
+                .stream(antiHeroService.getAllAntiHeroes().spliterator(), false)
+                .skip(toSkip)
+                .limit(pageable.getPageSize())
+                .toList();
+
+        List<AntiHeroDto> dtos = antiHeroes
             .stream()
             .map(entity -> modelMapper.map(entity, AntiHeroDto.class))
-            .collect(Collectors.toList());
+            .toList();
         return ResponseEntity.ok(dtos);
     }
 
