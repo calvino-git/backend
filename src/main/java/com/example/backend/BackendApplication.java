@@ -19,11 +19,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 @EnableCaching
 // The @EnableCaching annotation is used to enable caching support in a Spring application.
 // It allows you to use caching annotations like @Cacheable, @CachePut, and @
-public class DemoApplication implements CommandLineRunner {
+public class BackendApplication implements CommandLineRunner {
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(BackendApplication.class, args);
 	}
 	
 	// This annotation is used to run the method at application startup

@@ -31,7 +31,7 @@ public class UserService {
      */
 
     public UserDto createUser(UserDto userDto) throws NoSuchAlgorithmException {
-        if (userRepository.selectExistsEmail(userDto.getEmail())) {
+        if (userRepository.existsEmail(userDto.getEmail())) {
             throw new IllegalStateException("Email already exists");
         }
 
@@ -55,7 +55,7 @@ public class UserService {
      * @throws IllegalStateException if the email already exists
      */
     public UserDto updateUser(UserDto userDto) throws NoSuchAlgorithmException {
-        if (userRepository.selectExistsEmail(userDto.getEmail())) {
+        if (userRepository.existsEmail(userDto.getEmail())) {
             throw new IllegalStateException("Email already exists");
         }
 

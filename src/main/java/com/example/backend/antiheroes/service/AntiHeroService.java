@@ -20,12 +20,12 @@ public class AntiHeroService {
         this.antiHeroRepository = antiHeroRepository;
     }
 
-    public AntiHero createAntiHeroe(AntiHero antiHero) {
+    public AntiHero createAntiHero(AntiHero antiHero) {
         return antiHeroRepository.save(antiHero);
     }
 
     @Cacheable(value = "antiHeroes", key = "#id")
-    public AntiHero getAntiHeroeById(UUID id) {
+    public AntiHero getAntiHeroById(UUID id) {
         return findOrThrow(id);
     }
 
@@ -35,7 +35,7 @@ public class AntiHeroService {
     }
 
     @CachePut(value = "antiHeroes", key = "#id")
-    public AntiHero updateAntiHeroe(UUID id, AntiHero antiHeroData) {
+    public AntiHero updateAntiHero(UUID id, AntiHero antiHeroData) {
         AntiHero antiHero = findOrThrow(id);
         antiHero.setFirstName(antiHeroData.getFirstName());
         antiHero.setLastName(antiHeroData.getLastName());
@@ -45,7 +45,7 @@ public class AntiHeroService {
     }
 
     @CacheEvict(value = "antiHeroes", key = "#id")
-    public void deleteAntiHeroe(UUID id) {
+    public void deleteAntiHero(UUID id) {
         antiHeroRepository.deleteById(id);
     }
 
@@ -67,7 +67,7 @@ public class AntiHeroService {
 
     public AntiHero findOrThrow(UUID id) {
         return antiHeroRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("AntiHeroe with id " + id + " not found"));
+                .orElseThrow(() -> new NotFoundException("AntiHero with id " + id + " not found"));
     }
 
 

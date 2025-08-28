@@ -35,7 +35,7 @@ public class AntiHeroController {
 
     @PostMapping
     public ResponseEntity<AntiHeroDto> create(@Valid @RequestBody AntiHeroDto dto) {
-        AntiHero created = antiHeroService.createAntiHeroe(modelMapper.map(dto, AntiHero.class));
+        AntiHero created = antiHeroService.createAntiHero(modelMapper.map(dto, AntiHero.class));
         AntiHeroDto responseDto = modelMapper.map(created, AntiHeroDto.class);
         var location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(created.getId()).toUri();
 
@@ -51,7 +51,7 @@ public class AntiHeroController {
     // and subsequent calls with the same id will return the cached result instead of executing the method
     // again, improving performance by avoiding unnecessary database queries.
     public ResponseEntity<AntiHeroDto> getById(@PathVariable UUID id) {
-        AntiHero antiHero = antiHeroService.getAntiHeroeById(id);
+        AntiHero antiHero = antiHeroService.getAntiHeroById(id);
         AntiHeroDto dto = modelMapper.map(antiHero, AntiHeroDto.class);
         return ResponseEntity.ok(dto);
     }
@@ -77,14 +77,14 @@ public class AntiHeroController {
 
     @PutMapping("/{id}")
     public ResponseEntity<AntiHeroDto> update(@PathVariable UUID id, @Valid @RequestBody AntiHeroDto dto) {
-        AntiHero updated = antiHeroService.updateAntiHeroe(id, modelMapper.map(dto, AntiHero.class));
+        AntiHero updated = antiHeroService.updateAntiHero(id, modelMapper.map(dto, AntiHero.class));
         AntiHeroDto responseDto = modelMapper.map(updated, AntiHeroDto.class);
         return ResponseEntity.ok(responseDto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable UUID id) {
-        antiHeroService.deleteAntiHeroe(id);
+        antiHeroService.deleteAntiHero(id);
         return ResponseEntity.noContent().build();
     }
 }
