@@ -28,7 +28,6 @@ import java.util.stream.StreamSupport;
 @CrossOrigin(allowedHeaders = "Content-type")
 @RestController
 @AllArgsConstructor
-@PreAuthorize("isAuthenticated()")
 @RequestMapping("/api/v1/anti-heroes")
 public class AntiHeroController {
     private final AntiHeroService antiHeroService;
