@@ -1,6 +1,11 @@
 # Compiled class file
 *.class
 
+#Intellij IDEA
+.idea/
+!.idea/workspace.xml
+!.idea/vcs.xml
+
 # Log file
 *.log
 
