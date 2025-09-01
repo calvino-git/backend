@@ -17,7 +17,12 @@
 
 #target folder
 target/
+
+#Intellij Idea
 .idea/
+
+#Logs
+logs/
 
 # Package Files #
 *.jar
