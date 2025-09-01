@@ -18,9 +18,6 @@
 #target folder
 target/
 
-#Intellij Idea
-.idea/
-
 #Logs
 logs/
 
@@ -64,3 +61,5 @@ Temporary Items
 
 !/logs/
 /backend.iml
+!/logs/
+!/logs/
