@@ -35,8 +35,8 @@ public class UserService {
             throw new IllegalStateException("Email already exists");
         }
 
-        var salt = createSalt();
-        var passwordHash = createPasswordHash(userDto.getPassword(), salt);
+        byte[] salt = createSalt();
+        byte[] passwordHash = createPasswordHash(userDto.getPassword(), salt);
 
         UserEntity userEntity = convertToEntity(userDto);
         userEntity.setStoredSalt(salt);
@@ -60,12 +60,12 @@ public class UserService {
         }
 
         UserEntity userEntity = convertToEntity(userDto);
-        var existingUser = userRepository.findById(userEntity.getId())
+        UserEntity existingUser = userRepository.findById(userEntity.getId())
                 .orElseThrow(() -> new NotFoundException("User not found"));
 
         if (userDto.getPassword() != null) {
-            var salt = createSalt();
-            var passwordHash = createPasswordHash(userDto.getPassword(), salt);
+            byte[] salt = createSalt();
+            byte[] passwordHash = createPasswordHash(userDto.getPassword(), salt);
             userEntity.setStoredSalt(salt);
             userEntity.setStoredHash(passwordHash);
         } else {
@@ -110,7 +110,7 @@ public class UserService {
      * @throws NotFoundException if the user is not found
      */
     public UserDto findUserById(final UUID id) {
-        var user = userRepository
+        UserEntity user = userRepository
                 .findById(id)
                 .orElseThrow(
                         () -> new NotFoundException("User by id " + id +
@@ -124,7 +124,7 @@ public class UserService {
      * @return a list of all users as UserDto objects
      */
     public Iterable<UserDto> findAllUsers() {
-        var userEntityList = new ArrayList<>(userRepository.findAll());
+        ArrayList<UserEntity> userEntityList = new ArrayList<>(userRepository.findAll());
         return userEntityList
                 .stream()
                 .map(this::convertToDto)
@@ -145,14 +145,14 @@ public class UserService {
     }
 
     private byte[] createSalt() {
-        var random = new SecureRandom();
-        var salt = new byte[128];
+        SecureRandom random = new SecureRandom();
+        byte[] salt = new byte[128];
         random.nextBytes(salt);
         return salt;
     }
 
     private byte[] createPasswordHash(String password, byte[] salt) throws NoSuchAlgorithmException {
-        var md = MessageDigest.getInstance("SHA-512");
+        MessageDigest md = MessageDigest.getInstance("SHA-512");
         md.update(salt);
         return md.digest(password.getBytes(StandardCharsets.UTF_8));
     }

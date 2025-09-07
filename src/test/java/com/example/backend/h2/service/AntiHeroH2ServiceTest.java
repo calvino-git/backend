@@ -28,6 +28,7 @@ public class AntiHeroH2ServiceTest {
 
     @BeforeEach
     public void setUp() {
+        //antiHeroRepository.deleteAll();
         antiHeroService = new AntiHeroService(antiHeroRepository);
         //Populate the in-memory database with test data if necessary
         //Create and save antiHero1

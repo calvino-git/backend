@@ -44,9 +44,9 @@ public class AuthenticationController {
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException("Incorrect username or password", e);
         }
-        var userDetails = applicationUserDetailsService.loadUserByUsername(userEntity.getEmail());
+        UserDetails userDetails = applicationUserDetailsService.loadUserByUsername(userEntity.getEmail());
         System.out.println(userDetails);
-        var jwt = jwtUtil.generateToken(userDetails);
+        String jwt = jwtUtil.generateToken(userDetails);
         return ResponseEntity.status(HttpStatus.CREATED).body(new AuthenticationResponse(jwt));
     }
 }

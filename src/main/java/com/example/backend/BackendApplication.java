@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.example.backend.antiheroes.entity.AntiHero;
+import com.example.backend.antiheroes.repository.AntiHeroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -21,7 +23,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 // It allows you to use caching annotations like @Cacheable, @CachePut, and @
 public class BackendApplication implements CommandLineRunner {
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private AntiHeroRepository antiHeroRepository;
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 	}
@@ -32,13 +34,38 @@ public class BackendApplication implements CommandLineRunner {
 	// You can implement this annotation to execute the method automatically.
 	// For example, you can use @PostConstruct or implement CommandLineRunner.
 	public void run(String... args) throws Exception {
-		String sql = """
-        INSERT INTO blog (title, author, body)
-		VALUES ('Awesome Java Project', 'Seiji Villafranca',
-		'This is an awesome blog for java');
-		""";
-        int rows = jdbcTemplate.update(sql);
-		System.out.println("Rows inserted: " + rows);
+        /*AntiHero antiHero1 = new AntiHero();
+        antiHero1.setFirstName("Deadpool");
+        antiHero1.setHouse("Regeneration");
+        antiHero1.setKnowAs("Marvel");
+        antiHero1.setLastName("Wilson");
+        antiHeroRepository.save(antiHero1);
+
+        //Create and save antiHero2
+        AntiHero antiHero2 = new AntiHero();
+        antiHero2.setFirstName("Wolverine");
+        antiHero2.setHouse("Regeneration");
+        antiHero2.setKnowAs("Marvel");
+        antiHero2.setLastName("Logan");
+        antiHeroRepository.save(antiHero2);
+
+        //Create and save antiHero3
+        AntiHero antiHero3 = new AntiHero();
+        antiHero3.setFirstName("Punisher");
+        antiHero3.setHouse("Military");
+        antiHero3.setKnowAs("Marvel");
+        antiHero3.setLastName("Castle");
+        antiHeroRepository.save(antiHero3);
+
+        //Create and save antiHero4
+        AntiHero antiHero4 = new AntiHero();
+        antiHero4.setFirstName("Catwoman");
+        antiHero4.setHouse("Stealth");
+        antiHero4.setKnowAs("DC");
+        antiHero4.setLastName("Kyle");
+        antiHeroRepository.save(antiHero4);
+
+		System.out.println("Rows inserted: " + antiHeroRepository.count());*/
     }
 	public static int minOperations(int[] arr, int threshold, int d) {
         // Step 1: Gather all potential targets and their costs.
