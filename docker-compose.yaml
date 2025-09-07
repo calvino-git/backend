@@ -25,7 +25,8 @@ services:
       - postgres
   backend:
     container_name: backend-app
-    image: backend-app
+    build:
+      dockerfile: Dockerfile
     hostname: backend
     environment:
       POSTGRES_PASSWORD: postgres
