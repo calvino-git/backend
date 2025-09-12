@@ -11,3 +11,7 @@
 - Commented out code (32 lines) : *BackendApplication:37*
 - 
 - Field injection is not recommended: *BackendApplication:25*
+
+# Major Release Considerations
+- package javax.persistence does not exist
+- Update Spring Dependencies 
